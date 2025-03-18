@@ -5,7 +5,6 @@ import com.mjc.school.controller.exceptions.ValidationException;
 import com.mjc.school.service.dto.AuthorDtoRequest;
 import com.mjc.school.service.dto.AuthorDtoResponse;
 
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class CreateAuthor implements BaseCommand {
@@ -23,7 +22,10 @@ public class CreateAuthor implements BaseCommand {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Write author name:");
                 String tmpName = scanner.nextLine();
-                System.out.println(authorController.create(new AuthorDtoRequest((long) authorController.readAll().size() + 1, tmpName, LocalDateTime.now(), LocalDateTime.now())));
+                AuthorDtoRequest authorDtoRequest = AuthorDtoRequest.builder()
+                        .name(tmpName)
+                        .build();
+                System.out.println(authorController.create(authorDtoRequest));
                 isTrue = true;
             } catch (ValidationException e) {
                 throw new ValidationException("Author name is invalid");

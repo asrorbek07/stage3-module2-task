@@ -1,7 +1,7 @@
 package com.mjc.school.repository.dataSource;
 
-import com.mjc.school.repository.exception.ExceptionMessage;
 import com.mjc.school.repository.exception.FailedToLoadFileException;
+import com.mjc.school.repository.exception.RepoExceptionMessage;
 import com.mjc.school.repository.model.impl.AuthorModel;
 import com.mjc.school.repository.model.impl.NewsModel;
 import lombok.Getter;
@@ -76,7 +76,7 @@ public class DataSource {
         try {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
             if (inputStream == null) {
-                throw new FailedToLoadFileException("Resource file not found: " + fileName);
+                throw new FailedToLoadFileException(String.format(RepoExceptionMessage.RESOURCE_FILE_NOT_FOUND.getErrorMessage(), fileName));
             }
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
                 String line;
@@ -85,7 +85,7 @@ public class DataSource {
                 }
             }
         } catch (IOException e) {
-            throw new FailedToLoadFileException(String.format(ExceptionMessage.FAIL_TO_LOAD_RESOURCE.getErrorMessage(), fileName));
+            throw new FailedToLoadFileException(String.format(RepoExceptionMessage.FAIL_TO_LOAD_RESOURCE.getErrorMessage(), fileName));
         }
 
         while (lines.size() < NEWS_COUNT) {

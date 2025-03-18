@@ -7,11 +7,13 @@ import com.mjc.school.service.dto.NewsDtoResponse;
 
 import java.util.Scanner;
 
-public class CreateNews implements BaseCommand{
-    BaseController<NewsDtoRequest, NewsDtoResponse,Long> newsController;
-    public CreateNews(BaseController<NewsDtoRequest, NewsDtoResponse,Long> newsController){
+public class CreateNews implements BaseCommand {
+    BaseController<NewsDtoRequest, NewsDtoResponse, Long> newsController;
+
+    public CreateNews(BaseController<NewsDtoRequest, NewsDtoResponse, Long> newsController) {
         this.newsController = newsController;
     }
+
     @Override
     public void execute() {
         boolean isTrue = false;
@@ -24,10 +26,15 @@ public class CreateNews implements BaseCommand{
                 String tmpContent = scanner.nextLine();
                 System.out.println("Write News author id:");
                 Long tmpAuthor = scanner.nextLong();
-                System.out.println(newsController.create(new NewsDtoRequest((long)(newsController.readAll().size()+1),tmpTitle,tmpContent,tmpAuthor)));
+                NewsDtoRequest newsDtoRequest = NewsDtoRequest.builder()
+                        .title(tmpTitle)
+                        .content(tmpContent)
+                        .authorId(tmpAuthor)
+                        .build();
+
+                System.out.println(newsController.create(newsDtoRequest));
                 isTrue = true;
-            }
-            catch (ValidationException e){
+            } catch (ValidationException e) {
                 throw new ValidationException("News id is invalid");
             }
         }

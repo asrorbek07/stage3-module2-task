@@ -8,12 +8,11 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface AuthorMapper {
+    //
     AuthorMapper INSTANCE = Mappers.getMapper(AuthorMapper.class);
 
     AuthorDtoResponse authorModelToDto(AuthorModel model);
-//    @Mappings({
-//            @Mapping(target = "createDate", ignore = true),
-//            @Mapping(target = "lastUpdateDate", ignore = true)})
+
     AuthorModel authorDtoToModel(AuthorDtoRequest request);
 
 }

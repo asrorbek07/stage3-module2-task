@@ -9,16 +9,23 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class ValidateAspect {
+    //
     private Validator validator;
-    public ValidateAspect(Validator validator){
-        this.validator=validator;
+
+    public ValidateAspect(Validator validator) {
+        //
+        this.validator = validator;
     }
+
     @Before("@annotation(Validate) && args(newsDtoRequest)")
-    public void validateNewsRequest(NewsDtoRequest newsDtoRequest){
+    public void validateNewsRequest(NewsDtoRequest newsDtoRequest) {
+        //
         validator.validateNews(newsDtoRequest);
     }
+
     @Before("@annotation(Validate) && args(authorDtoRequest)")
-    public void validateAuthorRequest(AuthorDtoRequest authorDtoRequest){
+    public void validateAuthorRequest(AuthorDtoRequest authorDtoRequest) {
+        //
         validator.validateAuthor(authorDtoRequest);
     }
 

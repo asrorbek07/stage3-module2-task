@@ -30,7 +30,14 @@ public class UpdateNews implements BaseCommand {
                 String tmpContent = scanner.nextLine();
                 System.out.println("Write News author id:");
                 Long tmpAuthor = scanner.nextLong();
-                System.out.println(newsController.update(new NewsDtoRequest(id, tmpTitle, tmpContent, tmpAuthor)));
+                NewsDtoRequest newsDtoRequest = NewsDtoRequest.builder()
+                        .id(id)
+                        .title(tmpTitle)
+                        .content(tmpContent)
+                        .authorId(tmpAuthor)
+                        .build();
+
+                System.out.println(newsController.update(newsDtoRequest));
                 isTrue = true;
             } catch (ValidationException e) {
                 throw new ValidationException("News is invalid");
