@@ -21,6 +21,12 @@ subprojects {
     dependencies {
         implementation "org.springframework:spring-context:$springVersion"
 
+        implementation 'org.projectlombok:lombok:1.18.30'
+        annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+        implementation 'org.springframework:spring-aspects:6.0.11'
+        implementation 'com.github.shalousun:datasource-aspect:0.1'
+
         testImplementation "org.springframework:spring-test:$springVersion"
         testImplementation "org.junit.jupiter:junit-jupiter-api:$jupiterVersion"
         testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$jupiterVersion"
