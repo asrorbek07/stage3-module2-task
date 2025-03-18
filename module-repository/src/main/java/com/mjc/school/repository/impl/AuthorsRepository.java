@@ -4,6 +4,7 @@ import com.mjc.school.repository.BaseRepository;
 import com.mjc.school.repository.aspects.OnDelete;
 import com.mjc.school.repository.dataSource.DataSource;
 import com.mjc.school.repository.model.impl.AuthorModel;
+import com.mjc.school.repository.util.DataUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -38,6 +39,8 @@ public class AuthorsRepository implements BaseRepository<AuthorModel, Long> {
                 .max()
                 .orElse(0L) + 1;
         authorModel.setId(nextId);
+        authorModel.setCreateDate(DataUtil.now());
+        authorModel.setLastUpdateDate(DataUtil.now());
         this.dataSource.getAuthorModelList().add(authorModel);
         return authorModel;
     }
@@ -45,6 +48,7 @@ public class AuthorsRepository implements BaseRepository<AuthorModel, Long> {
     @Override
     public AuthorModel update(AuthorModel updatedAuthorModel) {
         //
+        updatedAuthorModel.setLastUpdateDate(DataUtil.now());
         for (int i = 0; i < dataSource.getAuthorModelList().size(); i++) {
             if (dataSource.getAuthorModelList().get(i).getId().equals(updatedAuthorModel.getId())) {
                 dataSource.getAuthorModelList().set(i, updatedAuthorModel);
